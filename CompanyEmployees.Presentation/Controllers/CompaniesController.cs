@@ -46,7 +46,7 @@ namespace CompanyEmployees.Presentation.Controllers
         [HttpGet("collection/({ids})", Name = "CompanyCollection")]
         public IActionResult GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))]IEnumerable<Guid> ids)
         {
-            var companies = _service.CompanyService.GetByIds(ids, trackChnages: false);
+            var companies = _service.CompanyService.GetByIds(ids, trackChanges: false);
 
             return Ok(companies);
         }
@@ -57,6 +57,13 @@ namespace CompanyEmployees.Presentation.Controllers
             var result = _service.CompanyService.CreateCompanyCollection(companyCollection);
 
             return CreatedAtRoute("CompanyCollection", new { result.ids }, result.companies);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteCompany(Guid id)
+        {
+            _service.CompanyService.DeleteCompany(id, trackChanges: false);
+            return NoContent();
         }
     }
 }
