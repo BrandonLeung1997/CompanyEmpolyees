@@ -1,9 +1,5 @@
-﻿using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities.Models;
+using Shared.DataTransferObjects;
 
 namespace Service.Contracts
 {
@@ -13,5 +9,10 @@ namespace Service.Contracts
         EmployeeDto GetEmployee(Guid employeeId, Guid id, bool trackChanges);
         EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employeeForCreationDto, bool trackChanges);
         void DeleteEmployeeForCompany(Guid companyId, Guid id, bool trackChanges);
+        void UpdateEmployeeForCompany(Guid companyId, Guid id,
+            EmployeeForUpdateDto employeeForUpdateDto, bool compTrackChanges, bool empTrackChanges);
+        (EmployeeForUpdateDto employeeToPatch, Employee employeeEntity) GetEmployeeForPatch(
+            Guid companyId, Guid id, bool compTrackChanges, bool empTrackChanges);
+        void SaveChangesForPath(EmployeeForUpdateDto employeeToPatch, Employee employeeEntity);
     }
 }
